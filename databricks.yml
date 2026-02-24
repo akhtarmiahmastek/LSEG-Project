@@ -1,0 +1,30 @@
+# This is a Databricks asset bundle definition for LSEG Project.
+# The Databricks extension requires databricks.yml configuration file.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+
+bundle:
+  name: LSEG Project
+
+include:
+  - resources/*.yml
+
+workspace:
+  host: https://adb-7405613464818727.7.azuredatabricks.net
+
+permissions:
+  - level: CAN_VIEW
+    group_name: users
+
+variables:
+  catalog_name:
+    default: "dev"
+
+targets:
+  dev:
+    default: true
+    mode: development
+    permissions:
+      - user_name: obaydu163730@mastek.com
+        level: CAN_MANAGE
+    variables:
+      catalog_name: "akhtar99981"

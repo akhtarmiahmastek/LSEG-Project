@@ -1,0 +1,37 @@
+# This is a Databricks asset bundle definition for LSEG Project.
+# The Databricks extension requires databricks.yml configuration file.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+
+bundle:
+  name: LSEG Project
+
+include:
+  - resources/*.yml
+
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-7405613464818727.7.azuredatabricks.net
+    cluster_id: ${resources.clusters.development_cluster.id}
+
+    resources:
+      clusters:
+        development_cluster:
+          cluster_name: Development cluster
+          spark_version: 15.4.x-scala2.12
+          node_type_id: Standard_DS4_v2 # i3.xlarge
+          num_workers: 0
+          autotermination_minutes: 30
+          spark_conf:
+              "spark.databricks.cluster.profile": "singleNode"
+              "spark.master": "local[*, 4]"
+          custom_tags:
+              "ResourceClass": "SingleNode"
+  ## Optionally, there could be 'staging' or 'prod' targets here.
+  #
+  # prod:
+  #   workspace:
+  #     host: https://adb-7405613464818727.7.azuredatabricks.net

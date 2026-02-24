@@ -1,0 +1,18 @@
+resources:
+  jobs:
+    lseg_job:
+      name: lseg job
+      permissions:
+        - level: CAN_VIEW
+          group_name: users
+      tasks:
+        - task_key: create_landing_data_0001
+          notebook_task:
+            notebook_path: ../Workspace/Users/${workspace.current_user.userName}/macro_platform/00_generate_dummy_landing_data.ipynb
+            source: WORKSPACE
+            base_parameters:
+              catalog_name: ${var.catalog_name}
+          
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
