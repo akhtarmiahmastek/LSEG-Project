@@ -58,7 +58,7 @@ jobs:
 
       # Run the Databricks workflow named "sample_job" as defined in the
       # bundle that was just deployed.
-      - run: databricks bundle run sample_job --refresh-all
+      - run: databricks bundle run lseg_job --refresh-all
         working-directory: .
         env:
           DATABRICKS_TOKEN: ${{ secrets.SP_TOKEN }}
