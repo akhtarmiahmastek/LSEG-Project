@@ -20,7 +20,7 @@ variables:
     default: "dev"
 
 targets:
-  dev:
+  dev-local:
     default: true
     mode: development
     permissions:
@@ -28,3 +28,11 @@ targets:
         level: CAN_MANAGE
     variables:
       catalog_name: "akhtar99981"
+  dev-ci:
+    default: true
+    mode: production
+    permissions:
+      - user_name: obaydu163730@mastek.com
+        level: CAN_MANAGE
+    variables:
+      catalog_name: "prod"
