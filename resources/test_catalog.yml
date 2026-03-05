@@ -5,7 +5,7 @@ resources:
         - group_name: users
           level: CAN_MANAGE
       name: "test_catalog"
-      comment: 'Testing'
+      comment: 'Testing Catalog'
       properties: 
         purpose: 'Testing' # ${var.catalog_name}
       grants:
