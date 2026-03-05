@@ -1,11 +1,15 @@
 resources:
   catalogs:
     test_catalog:
+      permissions:
+        - group_name: users
+          level: CAN_MANAGE
       name: "test_catalog"
       comment: 'Testing'
       properties: 
         purpose: 'Testing' # ${var.catalog_name}
       grants:
-        - principal: akhtar
+        - principal: ${workspace.current_user}
           privileges:
             - USE_CATALOG
+        
