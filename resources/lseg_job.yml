@@ -8,10 +8,29 @@ resources:
       tasks:
         - task_key: create_landing_data_0001
           notebook_task:
-            notebook_path: ../Workspace/Users/${workspace.current_user.userName}/macro_platform/00_generate_dummy_landing_data.ipynb
+            notebook_path: ${workspace.file_path}/src/macro_platform/00_generate_dummy_landing_data
             source: WORKSPACE
             base_parameters:
               catalog_name: ${var.catalog_name}
+        - task_key: ingest
+          depends_on:
+            - task_key: create_landing_data_0001
+          notebook_task:
+            notebook_path: ${workspace.file_path}/src/macro_platform/01_ingest_landing_to_raw_autoloader
+            base_parameters:
+              config_path: abfss://unity-catalog-storage@dbstoragezm5deu7lm74ky.dfs.core.windows.net/7405613464818727/macro_platform/config/lse_prices_test.yml   # or wherever
+              triggered_by: "ci-github"
+              run_mode: availableNow
+        - task_key: track_mlflow
+          depends_on:
+            - task_key: ingest
+          notebook_task:
+            notebook_path: ${workspace.file_path}/src/macro_platform/03_mlflow
+            base_parameters:
+              config_path: abfss://unity-catalog-storage@dbstoragezm5deu7lm74ky.dfs.core.windows.net/7405613464818727/macro_platform/config/lse_prices_test.yml
+              test_folder: good                    # or pass dynamically
+              triggered_by: "ci-github"
+              environment: ${bundle.target}        # ← key line
           
       queue:
         enabled: true

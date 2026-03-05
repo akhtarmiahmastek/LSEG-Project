@@ -1,0 +1,11 @@
+resources:
+  catalogs:
+    test_catalog:
+      name: "test_catalog"
+      comment: 'Testing'
+      properties: 
+        purpose: 'Testing' # ${var.catalog_name}
+      grants:
+        - principal: akhtar
+          privileges:
+            - USE_CATALOG
